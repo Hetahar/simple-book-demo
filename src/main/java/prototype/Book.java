@@ -1,10 +1,10 @@
 package prototype;
 
 public class Book implements Cloneable {
-    private String title;
-    private String author;
-    private String genre;
-    private int year;
+    private final String title;
+    private final String author;
+    private final String genre;
+    private final int year;
 
     public Book(String title, String author, String genre, int year) {
         this.title = title;
@@ -15,7 +15,11 @@ public class Book implements Cloneable {
 
     @Override
     public Book clone() {
-        return new Book(this.title, this.author, this.genre, this.year);
+        try {
+            return (Book) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(); // should not happen
+        }
     }
 
     @Override
